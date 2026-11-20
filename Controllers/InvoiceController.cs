@@ -2,8 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Invoice.Api.Models;
 using Invoice.Api.Services;
 
-namespace Invoice.Api.Controllers
-
+namespace Invoice.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -22,19 +21,7 @@ public class InvoiceController : ControllerBase
         var item = _service.GetById(id);
         return item is null ? NotFound() : Ok(item);
     }
- [HttpPut("{id:int}")]
-    public ActionResult<Invoice> update(Invoice item, int id)
-    {
-        try
-        {
-            var created = _service.Create(item);
-            return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
+
     [HttpPost]
     public ActionResult<Invoice> Create(Invoice item)
     {
